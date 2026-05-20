@@ -12,7 +12,14 @@ public class ClothingItem {
     private Long id;
 
     private String name;
-    private String category; // e.g., Top, Bottom, Shoes, Accessory
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
     private String color;
-    private String season;   // e.g., Summer, Winter, Fall, Spring, All
+
+    @Enumerated(EnumType.STRING)
+    private Season season;
+
+    private String imageUrl;
 }
