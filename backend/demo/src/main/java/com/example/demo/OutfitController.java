@@ -10,9 +10,11 @@ import java.util.List;
 public class OutfitController {
 
     private final OutfitService service;
+    private final GeminiOutfitService geminiOutfitService;
 
-    public OutfitController(OutfitService service) {
+    public OutfitController(OutfitService service, GeminiOutfitService geminiOutfitService) {
         this.service = service;
+        this.geminiOutfitService = geminiOutfitService;
     }
 
     @GetMapping("/")
@@ -49,7 +51,7 @@ public class OutfitController {
     }
 
     @PostMapping("/generate")
-    public ResponseEntity<?> generateOutfit(@RequestBody Object params) {
-        return ResponseEntity.ok().body("{\"message\": \"Outfit generation not implemented yet\"}");
+    public ResponseEntity<OutfitRecommendation> generateOutfit(@RequestBody OutfitRequest params) {
+        return ResponseEntity.ok(geminiOutfitService.generateOutfit(params));
     }
 }

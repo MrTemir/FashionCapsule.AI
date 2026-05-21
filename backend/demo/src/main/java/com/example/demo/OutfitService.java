@@ -54,6 +54,13 @@ public class OutfitService {
             return getAllItems();
         }
     }
+
+    public List<ClothingItem> getItemsForSeason(Season season) {
+        if (season == null || season == Season.ALL) {
+            return getAllItems();
+        }
+        return repository.findBySeason(season);
+    }
     
     // Future logic for AI outfit generation will be added here
 }

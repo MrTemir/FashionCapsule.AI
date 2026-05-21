@@ -3,6 +3,8 @@ import { generateOutfit } from '../services/api';
 
 export default function OutfitGenerator() {
     const [season, setSeason] = useState('ALL');
+    const [weather, setWeather] = useState('SUNNY');
+    const [timeOfDay, setTimeOfDay] = useState('MORNING');
     const [style, setStyle] = useState('CASUAL');
     const [loading, setLoading] = useState(false);
     const [outfit, setOutfit] = useState(null);
@@ -14,7 +16,7 @@ export default function OutfitGenerator() {
         setOutfit(null);
 
         try {
-            const response = await generateOutfit({ season, style });
+            const response = await generateOutfit({ season, weather, timeOfDay, style });
             setOutfit(response.data);
         } catch (err) {
             console.error('Ошибка:', err);
@@ -27,13 +29,26 @@ export default function OutfitGenerator() {
     return (
         <div style={{ marginTop: 32 }}>
             <h2>✨ Лук дня (AI)</h2>
-            <div style={{ display: 'flex', gap: 12, marginTop: 16, marginBottom: 16 }}>
+            <div style={{ display: 'flex', gap: 12, marginTop: 16, marginBottom: 16, flexWrap: 'wrap' }}>
                 <select value={season} onChange={(e) => setSeason(e.target.value)}>
                     <option value="ALL">Все сезоны</option>
                     <option value="SUMMER">Лето</option>
                     <option value="WINTER">Зима</option>
                     <option value="FALL">Осень</option>
                     <option value="SPRING">Весна</option>
+                </select>
+                <select value={weather} onChange={(e) => setWeather(e.target.value)}>
+                    <option value="SUNNY">Солнечно</option>
+                    <option value="RAINY">Дождь</option>
+                    <option value="COLD">Холодно</option>
+                    <option value="WINDY">Ветрено</option>
+                    <option value="SNOWY">Снег</option>
+                </select>
+                <select value={timeOfDay} onChange={(e) => setTimeOfDay(e.target.value)}>
+                    <option value="MORNING">Утро</option>
+                    <option value="AFTERNOON">День</option>
+                    <option value="EVENING">Вечер</option>
+                    <option value="NIGHT">Ночь</option>
                 </select>
                 <select value={style} onChange={(e) => setStyle(e.target.value)}>
                     <option value="CASUAL">Casual</option>
