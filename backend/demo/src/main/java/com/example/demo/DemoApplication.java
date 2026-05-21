@@ -11,5 +11,4 @@ public class DemoApplication {
         // Добавьте эту строку для поддержки .env
 		SpringApplication.run(DemoApplication.class, args);
 	}
-
 }
