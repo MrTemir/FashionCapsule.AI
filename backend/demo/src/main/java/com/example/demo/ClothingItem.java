@@ -1,11 +1,15 @@
 package com.example.demo;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "clothing_items")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClothingItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

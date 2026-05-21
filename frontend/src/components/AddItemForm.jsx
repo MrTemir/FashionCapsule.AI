@@ -5,9 +5,9 @@ import { validateItem } from '../utils/validators';
 export default function AddItemForm({ onItemAdded }) {
     const [form, setForm] = useState({
         name: '',
-        category: 'Top',
+        category: 'TOP',
         color: 'Black',
-        season: 'All'
+        season: 'ALL'
     });
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState(null);
@@ -32,7 +32,7 @@ export default function AddItemForm({ onItemAdded }) {
         try {
             const response = await addItem(form);
             setMessage({ type: 'success', text: `✅ Предмет "${response.data.name}" успешно добавлен!` });
-            setForm({ name: '', category: 'Top', color: 'Black', season: 'All' });
+            setForm({ name: '', category: 'TOP', color: 'Black', season: 'ALL' });
 
             // Вызов callback для обновления списка
             if (onItemAdded) onItemAdded();
@@ -57,10 +57,10 @@ export default function AddItemForm({ onItemAdded }) {
                     required
                 />
                 <select name="category" value={form.category} onChange={handleChange}>
-                    <option value="Top">👕 Top (Верх)</option>
-                    <option value="Bottom">👖 Bottom (Низ)</option>
-                    <option value="Shoes">👞 Shoes (Обувь)</option>
-                    <option value="Accessory">👜 Accessory (Аксессуар)</option>
+                    <option value="TOP">👕 Top (Верх)</option>
+                    <option value="BOTTOM">👖 Bottom (Низ)</option>
+                    <option value="SHOES">👞 Shoes (Обувь)</option>
+                    <option value="ACCESSORY">👜 Accessory (Аксессуар)</option>
                 </select>
                 <input
                     type="text"
@@ -70,11 +70,11 @@ export default function AddItemForm({ onItemAdded }) {
                     onChange={handleChange}
                 />
                 <select name="season" value={form.season} onChange={handleChange}>
-                    <option value="All">🌍 All (Все сезоны)</option>
-                    <option value="Summer">☀️ Summer (Лето)</option>
-                    <option value="Winter">❄️ Winter (Зима)</option>
-                    <option value="Fall">🍂 Fall (Осень)</option>
-                    <option value="Spring">🌸 Spring (Весна)</option>
+                    <option value="ALL">🌍 All (Все сезоны)</option>
+                    <option value="SUMMER">☀️ Summer (Лето)</option>
+                    <option value="WINTER">❄️ Winter (Зима)</option>
+                    <option value="FALL">🍂 Fall (Осень)</option>
+                    <option value="SPRING">🌸 Spring (Весна)</option>
                 </select>
                 <button type="submit" disabled={loading}>
                     {loading ? '⏳ Сохраняю...' : '✨ Добавить'}

@@ -47,4 +47,9 @@ public class OutfitController {
         service.deleteItem(id);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/generate")
+    public ResponseEntity<?> generateOutfit(@RequestBody Object params) {
+        return ResponseEntity.ok().body("{\"message\": \"Outfit generation not implemented yet\"}");
+    }
 }

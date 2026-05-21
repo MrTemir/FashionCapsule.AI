@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { generateOutfit } from '../services/api';
 
 export default function OutfitGenerator() {
-    const [season, setSeason] = useState('All');
-    const [style, setStyle] = useState('Casual');
+    const [season, setSeason] = useState('ALL');
+    const [style, setStyle] = useState('CASUAL');
     const [loading, setLoading] = useState(false);
     const [outfit, setOutfit] = useState(null);
     const [error, setError] = useState(null);
@@ -29,17 +29,17 @@ export default function OutfitGenerator() {
             <h2>✨ Лук дня (AI)</h2>
             <div style={{ display: 'flex', gap: 12, marginTop: 16, marginBottom: 16 }}>
                 <select value={season} onChange={(e) => setSeason(e.target.value)}>
-                    <option value="All">Все сезоны</option>
-                    <option value="Summer">Лето</option>
-                    <option value="Winter">Зима</option>
-                    <option value="Fall">Осень</option>
-                    <option value="Spring">Весна</option>
+                    <option value="ALL">Все сезоны</option>
+                    <option value="SUMMER">Лето</option>
+                    <option value="WINTER">Зима</option>
+                    <option value="FALL">Осень</option>
+                    <option value="SPRING">Весна</option>
                 </select>
                 <select value={style} onChange={(e) => setStyle(e.target.value)}>
-                    <option value="Casual">Casual</option>
-                    <option value="Formal">Formal</option>
-                    <option value="Sport">Sport</option>
-                    <option value="Party">Party</option>
+                    <option value="CASUAL">Casual</option>
+                    <option value="FORMAL">Formal</option>
+                    <option value="SPORT">Sport</option>
+                    <option value="PARTY">Party</option>
                 </select>
                 <button onClick={handleGenerate} disabled={loading}>
                     {loading ? '⏳ Генерирую...' : '🎨 Сгенерировать'}
