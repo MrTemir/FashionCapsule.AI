@@ -10,10 +10,8 @@ public class DataSeeder {
     @Bean
     CommandLineRunner initDatabase(ClothingItemRepository repository) {
         return args -> {
-            // Clear the database to avoid duplicates on restart
-            repository.deleteAll();
-
-            // Tops
+            // Заполняем базу по умолчанию, только если она пуста
+            if (repository.count() == 0) {
             repository.save(new ClothingItem(null, "White T-Shirt", Category.TOP, "White", Season.ALL, "https://example.com/images/white_tshirt.jpg"));
             repository.save(new ClothingItem(null, "Black Hoodie", Category.TOP, "Black", Season.WINTER, "https://example.com/images/black_hoodie.jpg"));
             repository.save(new ClothingItem(null, "Blue Blouse", Category.TOP, "Blue", Season.SPRING, "https://example.com/images/blue_blouse.jpg"));
@@ -30,6 +28,7 @@ public class DataSeeder {
             // Accessories
             repository.save(new ClothingItem(null, "Black Sunglasses", Category.ACCESSORY, "Black", Season.SUMMER, "https://example.com/images/sunglasses.jpg"));
             repository.save(new ClothingItem(null, "Wool Scarf", Category.ACCESSORY, "Red", Season.WINTER, "https://example.com/images/scarf.jpg"));
+            }
         };
     }
 }

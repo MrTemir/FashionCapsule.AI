@@ -7,6 +7,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/outfits")
+@CrossOrigin(origins = "*")
 public class OutfitController {
 
     private final OutfitService service;

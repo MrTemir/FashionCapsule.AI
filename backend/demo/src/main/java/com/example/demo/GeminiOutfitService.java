@@ -16,8 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class GeminiOutfitService {
-
-    private static final String GEMINI_URL_FORMAT = "https://gemini.googleapis.com/v1/models/%s:generate";
+    private static final String GEMINI_URL_FORMAT = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent";
 
     private final OutfitService outfitService;
     private final ObjectMapper objectMapper;
@@ -89,15 +88,11 @@ public class GeminiOutfitService {
         try {
             String url = String.format(GEMINI_URL_FORMAT, model) + "?key=" + apiKey;
             Map<String, Object> body = Map.of(
-                    "prompt", Map.of(
-                            "messages", List.of(
-                                    Map.of(
-                                            "role", "user",
-                                            "content", Map.of("text", prompt)
-                                    )
-                            )
-                    ),
-                    "temperature", 0.7
+                    "contents", List.of(
+                            Map.of("parts", List.of(
+                                    Map.of("text", prompt)
+                            ))
+                    )
             );
 
             String requestBody = objectMapper.writeValueAsString(body);
@@ -113,7 +108,7 @@ public class GeminiOutfitService {
             }
 
             JsonNode root = objectMapper.readTree(response.body());
-            JsonNode candidate = root.path("candidates").path(0).path("content").path("text");
+            JsonNode candidate = root.path("candidates").path(0).path("content").path("parts").path(0).path("text");
             if (candidate.isMissingNode() || candidate.asText().isBlank()) {
                 throw new IllegalStateException("Gemini returned empty answer: " + response.body());
             }
