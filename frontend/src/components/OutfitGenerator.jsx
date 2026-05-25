@@ -19,8 +19,8 @@ export default function OutfitGenerator() {
             const response = await generateOutfit({ season, weather, timeOfDay, style });
             setOutfit(response.data);
         } catch (err) {
-            console.error('Ошибка:', err);
-            setError('Не удалось сгенерировать лук. Попробуйте позже.');
+            console.error('Error:', err);
+            setError('Unable to generate an outfit right now. Please try again later.');
         } finally {
             setLoading(false);
         }
@@ -28,64 +28,66 @@ export default function OutfitGenerator() {
 
     return (
         <div style={{ marginTop: 32 }}>
-            <h2 style={{ marginBottom: 20 }}>✨ Генератор Идеального Лука</h2>
-            
-            <div className="generator-controls">
+            <h2 style={{ marginBottom: 20 }}>Outfit Generator</h2>
+
+            <div className="generator-controls" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <select value={season} onChange={(e) => setSeason(e.target.value)}>
-                    <option value="ALL">Все сезоны</option>
-                    <option value="SUMMER">Лето ☀️</option>
-                    <option value="WINTER">Зима ❄️</option>
-                    <option value="FALL">Осень 🍂</option>
-                    <option value="SPRING">Весна 🌱</option>
+                    <option value="ALL">All seasons</option>
+                    <option value="SUMMER">Summer</option>
+                    <option value="WINTER">Winter</option>
+                    <option value="FALL">Fall</option>
+                    <option value="SPRING">Spring</option>
                 </select>
+
                 <select value={weather} onChange={(e) => setWeather(e.target.value)}>
-                    <option value="SUNNY">Солнечно ☀️</option>
-                    <option value="RAINY">Дождь 🌧️</option>
-                    <option value="COLD">Холодно 🥶</option>
-                    <option value="WINDY">Ветрено 💨</option>
-                    <option value="SNOWY">Снег ❄️</option>
+                    <option value="SUNNY">Sunny</option>
+                    <option value="RAINY">Rainy</option>
+                    <option value="COLD">Cold</option>
+                    <option value="WINDY">Windy</option>
+                    <option value="SNOWY">Snowy</option>
                 </select>
+
                 <select value={timeOfDay} onChange={(e) => setTimeOfDay(e.target.value)}>
-                    <option value="MORNING">Утро 🌅</option>
-                    <option value="AFTERNOON">День 🏙️</option>
-                    <option value="EVENING">Вечер 🌇</option>
-                    <option value="NIGHT">Ночь 🌃</option>
+                    <option value="MORNING">Morning</option>
+                    <option value="AFTERNOON">Afternoon</option>
+                    <option value="EVENING">Evening</option>
+                    <option value="NIGHT">Night</option>
                 </select>
+
                 <select value={style} onChange={(e) => setStyle(e.target.value)}>
-                    <option value="CASUAL">Casual 👕</option>
-                    <option value="FORMAL">Formal 👔</option>
-                    <option value="SPORT">Sport 🏃‍♂️</option>
-                    <option value="PARTY">Party 🎉</option>
+                    <option value="CASUAL">Casual</option>
+                    <option value="FORMAL">Formal</option>
+                    <option value="SPORT">Sport</option>
+                    <option value="PARTY">Party</option>
                 </select>
+
                 <button className="generate-btn" onClick={handleGenerate} disabled={loading}>
-                    {loading ? '⏳ Магия ИИ работает...' : '🎨 Создать шедевр'}
+                    {loading ? 'Generating...' : 'Generate outfit'}
                 </button>
             </div>
 
-            {error && <div className="error" style={{marginTop: 20}}>{error}</div>}
+            {error && <div className="error" style={{ marginTop: 20 }}>{error}</div>}
 
             {outfit && (
-                <div className="outfit-result-card">
-                    <h3 style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-                        💡 Рекомендация стилиста
-                    </h3>
-                    
-                    <div className="recommendation-text">
-                        {outfit.recommendation || 'Рекомендация не найдена'}
+                <div className="outfit-result-card" style={{ marginTop: 20 }}>
+                    <h3 style={{ marginBottom: 12 }}>Stylist recommendation</h3>
+
+                    <div className="recommendation-text" style={{ marginBottom: 12 }}>
+                        {outfit.recommendation || 'No recommendation available.'}
                     </div>
 
-                    <h4 style={{ marginBottom: 12, color: '#4a5568' }}>🛍️ Доступные вещи для образа:</h4>
-                    
+                    <h4 style={{ marginBottom: 12, color: '#4a5568' }}>Available items</h4>
+
                     {outfit.availableItems && outfit.availableItems.length > 0 ? (
-                        <div className="items-wrapper">
+                        <div className="items-wrapper" style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                             {outfit.availableItems.map((item, idx) => (
-                                <div key={idx} className="item-badge">
-                                    👗 {item}
+                                <div key={idx} className="item-badge" style={{ padding: '6px 10px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: 6 }}>
+                                    {item}
                                 </div>
                             ))}
                         </div>
                     ) : (
-                        <p style={{ color: '#a0aec0', fontSize: 14 }}>К сожалению, подходящих вещей не нашлось.</p>
+                        <p style={{ color: '#718096', fontSize: 14 }}>No suitable items found.</p>
                     )}
                 </div>
             )}

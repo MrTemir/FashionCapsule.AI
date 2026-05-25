@@ -7,7 +7,6 @@ export default function Home() {
     const [refreshKey, setRefreshKey] = useState(0);
 
     const handleItemAdded = () => {
-        // Триггер перезагрузки списка
         setRefreshKey(prev => prev + 1);
     };
 

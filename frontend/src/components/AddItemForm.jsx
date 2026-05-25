@@ -21,7 +21,6 @@ export default function AddItemForm({ onItemAdded }) {
         e.preventDefault();
         setMessage(null);
 
-        // Валидация
         const validation = validateItem(form);
         if (!validation.valid) {
             setMessage({ type: 'error', text: validation.error });
@@ -31,14 +30,13 @@ export default function AddItemForm({ onItemAdded }) {
         setLoading(true);
         try {
             const response = await addItem(form);
-            setMessage({ type: 'success', text: `✅ Предмет "${response.data.name}" успешно добавлен!` });
+            setMessage({ type: 'success', text: `Item "${response.data.name}" added successfully!` });
             setForm({ name: '', category: 'TOP', color: 'Black', season: 'ALL' });
 
-            // Вызов callback для обновления списка
             if (onItemAdded) onItemAdded();
         } catch (err) {
-            console.error('Ошибка:', err);
-            setMessage({ type: 'error', text: '❌ Ошибка при добавлении предмета' });
+            console.error('Error:', err);
+            setMessage({ type: 'error', text: 'Error adding item. Please try again.' });
         } finally {
             setLoading(false);
         }
@@ -46,38 +44,38 @@ export default function AddItemForm({ onItemAdded }) {
 
     return (
         <div>
-            <h2>➕ Добавить предмет одежды</h2>
+            <h2>Add Clothing Item</h2>
             <form onSubmit={handleSubmit} style={{ marginTop: 16 }}>
                 <input
                     type="text"
                     name="name"
-                    placeholder="Название (например: Белая футболка)"
+                    placeholder="Item name (e.g., White T-shirt)"
                     value={form.name}
                     onChange={handleChange}
                     required
                 />
                 <select name="category" value={form.category} onChange={handleChange}>
-                    <option value="TOP">👕 Top (Верх)</option>
-                    <option value="BOTTOM">👖 Bottom (Низ)</option>
-                    <option value="SHOES">👞 Shoes (Обувь)</option>
-                    <option value="ACCESSORY">👜 Accessory (Аксессуар)</option>
+                    <option value="TOP">Top</option>
+                    <option value="BOTTOM">Bottom</option>
+                    <option value="SHOES">Shoes</option>
+                    <option value="ACCESSORY">Accessory</option>
                 </select>
                 <input
                     type="text"
                     name="color"
-                    placeholder="Цвет (например: Red, Blue, #FF5733)"
+                    placeholder="Color (e.g., Red, Blue, #FF5733)"
                     value={form.color}
                     onChange={handleChange}
                 />
                 <select name="season" value={form.season} onChange={handleChange}>
-                    <option value="ALL">🌍 All (Все сезоны)</option>
-                    <option value="SUMMER">☀️ Summer (Лето)</option>
-                    <option value="WINTER">❄️ Winter (Зима)</option>
-                    <option value="FALL">🍂 Fall (Осень)</option>
-                    <option value="SPRING">🌸 Spring (Весна)</option>
+                    <option value="ALL">All Seasons</option>
+                    <option value="SUMMER">Summer</option>
+                    <option value="WINTER">Winter</option>
+                    <option value="FALL">Fall</option>
+                    <option value="SPRING">Spring</option>
                 </select>
                 <button type="submit" disabled={loading}>
-                    {loading ? '⏳ Сохраняю...' : '✨ Добавить'}
+                    {loading ? 'Saving...' : 'Add Item'}
                 </button>
             </form>
             {message && (
